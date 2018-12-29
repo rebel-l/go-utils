@@ -13,4 +13,5 @@ before_install:
 
 script:
   - gometalinter --config=gometalinter.json
+  - go test -v -cover -race ./...
   - $GOPATH/bin/goveralls -service=travis-ci
