@@ -6,10 +6,11 @@ go:
 git:
   depth: 1
 
-before_script:
+before_install:
   - go get -u github.com/alecthomas/gometalinter
   - gometalinter --install
+  - go get github.com/mattn/goveralls
 
 script:
-  - go test -v -cover -race ./...
   - gometalinter --config=gometalinter.json
+  - $GOPATH/bin/goveralls -service=travis-ci
