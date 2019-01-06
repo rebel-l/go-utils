@@ -13,5 +13,8 @@ before_install:
 
 script:
   - gometalinter --config=gometalinter.json
-  - go test -v -cover -race ./...
+  - go test -v -cover -race -coverprofile=coverage.txt -covermode=atomic ./...
   - $GOPATH/bin/goveralls -service=travis-ci
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
