@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Release](https://img.shields.io/github/release/rebel-l/go-utils.svg?label=Release)](https://github.com/rebel-l/go-utils/releases)
-[![GitHub issues](https://img.shields.io/github/issues/rebel-l/go-utils.svg)](https://github/issues/rebel-l/go-utils/issues)
+[![GitHub issues](https://img.shields.io/github/issues/rebel-l/go-utils.svg)](https://github/rebel-l/go-utils/issues)
 
 # Collection: go-utils
 Provides a collection packages with utils for Golang.
