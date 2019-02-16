@@ -12,3 +12,6 @@ Provides a collection packages with utils for Golang.
 
 ## Package: osutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/osutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/osutils)
 The package `osutils` provides additional functionalitly on Golangs `os` package.
+
+## Package: array [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/array?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/array)
+The package `array` contains helpers to work with arrays of different types.
