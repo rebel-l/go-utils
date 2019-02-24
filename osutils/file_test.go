@@ -3,6 +3,7 @@ package osutils_test
 import (
 	"io/ioutil"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/rebel-l/go-utils/osutils"
@@ -74,7 +75,7 @@ func TestCopyFile_Unhappy(t *testing.T) {
 			name:        "wrong source",
 			src:         "file_does_not_exist.log",
 			dest:        "/tmp/something.log",
-			expectedErr: "copy failed on source file: open file_does_not_exist.log: The system cannot find the file specified.",
+			expectedErr: "copy failed on source file: open file_does_not_exist.log",
 		},
 	}
 
@@ -85,8 +86,8 @@ func TestCopyFile_Unhappy(t *testing.T) {
 				t.Fatalf("excpected error is happen but got none")
 			}
 
-			if testCase.expectedErr != err.Error() {
-				t.Errorf("expected error message '%s' but got '%s'", testCase.expectedErr, err.Error())
+			if !strings.Contains(err.Error(), testCase.expectedErr) {
+				t.Errorf("expected error message contains '%s'. Got '%s'", testCase.expectedErr, err.Error())
 			}
 		})
 	}
