@@ -13,6 +13,9 @@ Provides a collection of packages with common functionality for Golang.
 ## Package: array [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/array?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/array)
 The package `array` contains helpers to work with arrays of different types.
 
+## Package: errorutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/errorutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/errorutils)
+The package `errorutils` provide functions around the go error interface.
+
 ## Package: option [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/option?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/option)
 The package `option` provides types and functions to manage basic options.
 
