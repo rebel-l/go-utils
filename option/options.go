@@ -1,5 +1,7 @@
 package option
 
+import "fmt"
+
 // Options provides slice of Option
 type Options []Option
 
@@ -11,4 +13,15 @@ func (o Options) IsValidOption(key string) bool {
 		}
 	}
 	return false
+}
+
+// ForAll iterates over all options and executes a callback on each option
+func (o Options) ForAll(callback func(option Option) error) error {
+	for i, v := range o {
+		err := callback(v)
+		if err != nil {
+			return fmt.Errorf("failed to execute callback on entry %d: %s", i, err)
+		}
+	}
+	return nil
 }
