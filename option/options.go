@@ -1,6 +1,9 @@
 package option
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // Options provides slice of Option
 type Options []Option
@@ -9,6 +12,17 @@ type Options []Option
 func (o Options) IsValidOption(key string) bool {
 	for _, v := range o {
 		if v.Key == key {
+			return true
+		}
+	}
+	return false
+}
+
+// IsValidOptionCI checks if Options contains a specific key as IsValidOption() but works case insensitive
+func (o Options) IsValidOptionCI(key string) bool {
+	key = strings.ToLower(key)
+	for _, v := range o {
+		if strings.ToLower(v.Key) == key {
 			return true
 		}
 	}
