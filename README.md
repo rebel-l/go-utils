@@ -8,10 +8,14 @@
 [![GitHub issues](https://img.shields.io/github/issues/rebel-l/go-utils.svg)](https://github/rebel-l/go-utils/issues)
 
 # Collection: go-utils
-Provides a collection packages with utils for Golang.
+Provides a collection of packages with common functionality for Golang.
+
+## Package: array [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/array?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/array)
+The package `array` contains helpers to work with arrays of different types.
+
+## Package: option [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/option?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/option)
+The package `option` provides types and functions to manage basic options.
 
 ## Package: osutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/osutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/osutils)
 The package `osutils` provides additional functionalitly on Golangs `os` package.
 
-## Package: array [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/array?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/array)
-The package `array` contains helpers to work with arrays of different types.
