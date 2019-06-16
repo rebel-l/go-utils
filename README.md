@@ -16,6 +16,9 @@ The package `array` contains helpers to work with arrays of different types.
 ## Package: errorutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/errorutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/errorutils)
 The package `errorutils` provide functions around the go error interface.
 
+## Package: mapof [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/mapof?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/mapof)
+The package `mapof` provides types and functions to work with most common map of slices.
+
 ## Package: option [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/option?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/option)
 The package `option` provides types and functions to manage basic options.
 
