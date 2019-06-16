@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Release](https://img.shields.io/github/release/rebel-l/go-utils.svg?label=Release)](https://github.com/rebel-l/go-utils/releases)
-[![GitHub issues](https://img.shields.io/github/issues/rebel-l/go-utils.svg)](https://github/rebel-l/go-utils/issues)
+[![GitHub issues](https://img.shields.io/github/issues/rebel-l/go-utils.svg)](https://github.com/rebel-l/go-utils/issues)
 
 # Collection: go-utils
 Provides a collection of packages with common functionality for Golang.
@@ -16,9 +16,14 @@ The package `array` contains helpers to work with arrays of different types.
 ## Package: errorutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/errorutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/errorutils)
 The package `errorutils` provide functions around the go error interface.
 
+## Package: mapof [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/mapof?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/mapof)
+The package `mapof` provides types and functions to work with most common map of slices.
+
 ## Package: option [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/option?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/option)
 The package `option` provides types and functions to manage basic options.
 
 ## Package: osutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/osutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/osutils)
 The package `osutils` provides additional functionalitly on Golangs `os` package.
 
+## Package: slice [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/slice?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/slice)
+The package `slice` provides types and functions to work with most common slices.
