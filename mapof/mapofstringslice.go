@@ -37,5 +37,6 @@ func (s StringSliceMap) GetValuesForKey(key string) slice.StringSlice {
 	if ok {
 		return values
 	}
+
 	return slice.StringSlice{}
 }

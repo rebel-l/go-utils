@@ -22,7 +22,7 @@ func (s StringSlice) IsNotIn(search string) bool {
 // Diff returns a StringSlice containing all values which are not in the given StringSlice
 func (s StringSlice) Diff(b StringSlice) StringSlice {
 	var result StringSlice
-	for _, a := range s {
+	for _, a := range s { // nolint: wsl
 		if b.IsNotIn(a) {
 			result = append(result, a)
 		}

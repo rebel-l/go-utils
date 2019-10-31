@@ -162,12 +162,13 @@ func TestStringSliceMap_AddUniqueValue(t *testing.T) {
 
 func hasDuplicates(s slice.StringSlice) bool {
 	counter := make(map[string]bool)
-	for _, v := range s {
+	for _, v := range s { // nolint: wsl
 		if _, ok := counter[v]; ok {
 			return true
-		} else {
-			counter[v] = true
 		}
+
+		counter[v] = true
 	}
+
 	return false
 }

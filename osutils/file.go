@@ -26,7 +26,7 @@ func CopyFile(src, dest string) error {
 	if err != nil {
 		return fmt.Errorf("copy failed on source file: %s", err)
 	}
-	defer func() {
+	defer func() { // nolint: wsl
 		_ = from.Close() // nolint: gosec
 	}()
 
@@ -34,12 +34,13 @@ func CopyFile(src, dest string) error {
 	if err != nil {
 		return fmt.Errorf("copy failed on destination file: %s", err)
 	}
-	defer func() {
+	defer func() { // nolint: wsl
 		_ = to.Close() // nolint: gosec
 	}()
 
 	if _, err = io.Copy(to, from); err != nil {
 		return fmt.Errorf("copy failed: %s", err)
 	}
+
 	return nil
 }

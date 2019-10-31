@@ -15,6 +15,7 @@ func (o Options) IsValidOption(key string) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -26,6 +27,7 @@ func (o Options) IsValidOptionCI(key string) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -37,5 +39,6 @@ func (o Options) ForAll(callback func(option Option) error) error {
 			return fmt.Errorf("failed to execute callback on entry %d: %s", i, err)
 		}
 	}
+
 	return nil
 }
