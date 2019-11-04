@@ -7,6 +7,10 @@ import (
 	"path/filepath"
 )
 
+const (
+	defaultPermission = 0750
+)
+
 // FileOrPathExists checks if a path or file exists
 func FileOrPathExists(path string) bool {
 	_, err := os.Stat(path)
@@ -43,4 +47,25 @@ func CopyFile(src, dest string) error {
 	}
 
 	return nil
+}
+
+// CreateDirectoryIfNotExists creates a path recursive
+func CreateDirectoryIfNotExists(path string) (err error) {
+	exist := FileOrPathExists(path)
+	if !exist {
+		err = os.MkdirAll(path, defaultPermission)
+	}
+
+	return
+}
+
+// CreateFileIfNotExists creates a file with the given file name (needs to include the path).
+// If path doesn'T exist it returns an error.
+func CreateFileIfNotExists(file string) (err error) {
+	exist := FileOrPathExists(file)
+	if !exist {
+		_, err = os.Create(file)
+	}
+
+	return
 }

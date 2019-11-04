@@ -1,8 +1,10 @@
 package osutils_test
 
 import (
+	"errors"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -96,5 +98,106 @@ func TestCopyFile_Unhappy(t *testing.T) {
 				t.Errorf("expected error message contains '%s'. Got '%s'", testCase.expectedErr, err.Error())
 			}
 		})
+	}
+}
+
+func TestCreateDirectoryIfNotExists(t *testing.T) {
+	testCases := []struct {
+		name          string
+		path          string
+		iterations    int
+		levels        int
+		expectedError error
+	}{
+		{
+			name:       "happy - new directory one level",
+			path:       "./../tmp/new",
+			levels:     1,
+			iterations: 1,
+		},
+		{
+			name:       "happy - new directory two levels",
+			path:       "./../tmp/new/two",
+			levels:     2,
+			iterations: 1,
+		},
+		{
+			name:       "happy - new directory which already exists",
+			path:       "./../tmp/new",
+			levels:     1,
+			iterations: 2,
+		},
+	}
+
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			for i := 0; i < testCase.iterations; i++ {
+				err := osutils.CreateDirectoryIfNotExists(testCase.path)
+				if err != testCase.expectedError {
+					t.Fatalf("failed to create directory %s: expected error %v but got %v", testCase.path, testCase.expectedError, err)
+				}
+			}
+
+			pathToCleanUp := testCase.path
+
+			for i := 0; i < testCase.levels; i++ {
+				if err := os.Remove(pathToCleanUp); err != nil {
+					t.Fatalf("unable to cleanup after test execution: %s", err)
+				}
+
+				pathToCleanUp = filepath.Dir(pathToCleanUp)
+			}
+		})
+	}
+}
+
+func TestCreateFileIfNotExists(t *testing.T) {
+	var createdFiles []string
+
+	testCases := []struct {
+		name          string
+		fileName      string
+		iterations    int
+		expectedError error
+	}{
+		{
+			name:       "happy - new file",
+			fileName:   "./../tmp/new_file.log",
+			iterations: 1,
+		},
+		{
+			name:       "happy - file exists",
+			fileName:   "./../tmp/file_exists.log",
+			iterations: 2,
+		},
+		{
+			name:       "unhappy - path doesn't exist",
+			fileName:   "./../tmp/pathdoesnotexist/new_file.log",
+			iterations: 1,
+			expectedError: errors.New(
+				"open ./../tmp/pathdoesnotexist/new_file.log: The system cannot find the path specified.", // nolint: golint
+			),
+		},
+	}
+
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			for i := 0; i < testCase.iterations; i++ {
+				err := osutils.CreateFileIfNotExists(testCase.fileName)
+				if err != nil {
+					if testCase.expectedError != nil && err.Error() != testCase.expectedError.Error() {
+						t.Fatalf("failed to create file %s: expected error %v but got %v", testCase.fileName, testCase.expectedError, err)
+					}
+					return
+				}
+			}
+			createdFiles = append(createdFiles, testCase.fileName)
+		})
+	}
+
+	for _, f := range createdFiles {
+		if err := os.Remove(f); err != nil {
+			t.Fatalf("unable to cleanup after test execution: %s", err)
+		}
 	}
 }
