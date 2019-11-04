@@ -77,6 +77,12 @@ func TestCopyFile_Unhappy(t *testing.T) {
 			dest:        "/tmp/something.log",
 			expectedErr: "copy failed on source file: open file_does_not_exist.log",
 		},
+		{
+			name:        "wrong destination",
+			src:         "./../LICENSE",
+			dest:        "./../wrong_path/file_does_not_exist.log",
+			expectedErr: "copy failed on destination file: open",
+		},
 	}
 
 	for _, testCase := range testCases {
