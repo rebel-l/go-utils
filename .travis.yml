@@ -7,7 +7,8 @@ git:
   depth: 1
 
 before_install:
-#  - go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+  - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s v1.21.0
+  - golangci-lint --version
 
 script:
   - golangci-lint run -v
