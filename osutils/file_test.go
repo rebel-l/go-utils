@@ -1,7 +1,6 @@
 package osutils_test
 
 import (
-	"errors"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -158,7 +157,7 @@ func TestCreateFileIfNotExists(t *testing.T) {
 		name          string
 		fileName      string
 		iterations    int
-		expectedError error
+		expectedError string
 	}{
 		{
 			name:       "happy - new file",
@@ -171,12 +170,10 @@ func TestCreateFileIfNotExists(t *testing.T) {
 			iterations: 2,
 		},
 		{
-			name:       "unhappy - path doesn't exist",
-			fileName:   "./../tmp/pathdoesnotexist/new_file.log",
-			iterations: 1,
-			expectedError: errors.New(
-				"open ./../tmp/pathdoesnotexist/new_file.log: The system cannot find the path specified.", // nolint: golint
-			),
+			name:          "unhappy - path doesn't exist",
+			fileName:      "./../tmp/pathdoesnotexist/new_file.log",
+			iterations:    1,
+			expectedError: "open ./../tmp/pathdoesnotexist/new_file.log:", // nolint: golint
 		},
 	}
 
@@ -185,8 +182,13 @@ func TestCreateFileIfNotExists(t *testing.T) {
 			for i := 0; i < testCase.iterations; i++ {
 				err := osutils.CreateFileIfNotExists(testCase.fileName)
 				if err != nil {
-					if testCase.expectedError != nil && err.Error() != testCase.expectedError.Error() {
-						t.Fatalf("failed to create file %s: expected error %v but got %v", testCase.fileName, testCase.expectedError, err)
+					if testCase.expectedError != "" && !strings.Contains(err.Error(), testCase.expectedError) {
+						t.Fatalf(
+							"failed to create file %s: expected error '%v' but got '%v'",
+							testCase.fileName,
+							testCase.expectedError,
+							err,
+						)
 					}
 					return
 				}
