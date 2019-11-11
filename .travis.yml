@@ -7,12 +7,12 @@ git:
   depth: 1
 
 before_install:
-  - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s v1.21.0
-  - go mod download
-  - golangci-lint --version
+#  - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s v1.21.0
+#  - go mod download
+#  - golangci-lint --version
 
 script:
-  - golangci-lint run -v
+  - go mod download && golangci-lint run -v
   - go test -v -cover -race -coverprofile=coverage.txt -covermode=atomic ./...
 
 after_success:
