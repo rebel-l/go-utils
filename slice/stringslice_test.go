@@ -204,3 +204,98 @@ func Test(t *testing.T) {
 		})
 	}
 }
+
+func TestStringSlice_Len(t *testing.T) {
+	testCases := []struct {
+		name  string
+		given slice.StringSlice
+		want  int
+	}{
+		{
+			name: "no elements",
+			want: 0,
+		},
+		{
+			name:  "one elements",
+			given: slice.StringSlice{"one"},
+			want:  1,
+		},
+		{
+			name:  "two elements",
+			given: slice.StringSlice{"one", "two"},
+			want:  2,
+		},
+	}
+
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			if testCase.given.Len() != testCase.want {
+				t.Errorf("expected length is %d but got %d", testCase.given.Len(), testCase.want)
+			}
+		})
+	}
+}
+
+func TestStringSlice_IsEqual(t *testing.T) {
+	testCases := []struct {
+		name string
+		a, b slice.StringSlice
+		want bool
+	}{
+		{
+			name: "first empty",
+			b:    slice.StringSlice{"one"},
+			want: false,
+		},
+		{
+			name: "second empty",
+			a:    slice.StringSlice{"one"},
+			want: false,
+		},
+		{
+			name: "first has more items",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"one"},
+			want: false,
+		},
+		{
+			name: "second has more items",
+			a:    slice.StringSlice{"one"},
+			b:    slice.StringSlice{"one", "two"},
+			want: false,
+		},
+		{
+			name: "both has one item items",
+			a:    slice.StringSlice{"one"},
+			b:    slice.StringSlice{"one"},
+			want: true,
+		},
+		{
+			name: "both has two items in exactly same order",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"one", "two"},
+			want: true,
+		},
+		{
+			name: "both has two items in different order",
+			a:    slice.StringSlice{"two", "one"},
+			b:    slice.StringSlice{"one", "two"},
+			want: true,
+		},
+		{
+			name: "slices has both two items but differs in values",
+			a:    slice.StringSlice{"one", "three"},
+			b:    slice.StringSlice{"one", "two"},
+			want: false,
+		},
+	}
+
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			given := testCase.a.IsEqual(testCase.b)
+			if testCase.want != given {
+				t.Errorf("slices are not equal, a:'%v' | b: '%v'", testCase.a, testCase.b)
+			}
+		})
+	}
+}

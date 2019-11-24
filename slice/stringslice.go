@@ -30,3 +30,23 @@ func (s StringSlice) Diff(b StringSlice) StringSlice {
 
 	return result
 }
+
+// Len returns the length of the slice
+func (s StringSlice) Len() int {
+	return len(s)
+}
+
+// IsEqual checks if two slices contains the same values. It don'T cares about the order.
+func (s StringSlice) IsEqual(b StringSlice) bool {
+	if s.Len() != b.Len() {
+		return false
+	}
+
+	for _, item := range s {
+		if b.IsNotIn(item) {
+			return false
+		}
+	}
+
+	return true
+}
