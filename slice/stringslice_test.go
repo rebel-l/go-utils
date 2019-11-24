@@ -299,3 +299,39 @@ func TestStringSlice_IsEqual(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkStringSlice_IsEqual(b *testing.B) {
+	cases := []struct {
+		name string
+		a, b slice.StringSlice
+	}{
+		{
+			name: "differs in length",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"one"},
+		},
+		{
+			name: "differs in values",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"one", "three"},
+		},
+		{
+			name: "values are same and have same order",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"one", "two"},
+		},
+		{
+			name: "values are same but different order",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"two", "one"},
+		},
+	}
+
+	for _, c := range cases {
+		b.Run(c.name, func(b *testing.B) {
+			for n := 0; n < b.N; n++ {
+				_ = c.a.IsEqual(c.b)
+			}
+		})
+	}
+}
