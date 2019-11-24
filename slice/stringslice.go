@@ -37,7 +37,7 @@ func (s StringSlice) Len() int {
 }
 
 // IsEqual checks if two slices contains the same values. It don't cares about the order.
-// Note: IsSame() is faster and is preferred as long as you the order of the values is same in both slices.
+// Note: IsSame() is faster and is preferred as long as it is ensured the order of the values is same in both slices.
 func (s StringSlice) IsEqual(b StringSlice) bool {
 	if s.Len() != b.Len() {
 		return false
