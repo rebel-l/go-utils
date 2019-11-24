@@ -335,3 +335,103 @@ func BenchmarkStringSlice_IsEqual(b *testing.B) {
 		})
 	}
 }
+
+func TestStringSlice_IsSame(t *testing.T) {
+	testCases := []struct {
+		name string
+		a, b slice.StringSlice
+		want bool
+	}{
+		{
+			name: "first empty",
+			b:    slice.StringSlice{"one"},
+			want: false,
+		},
+		{
+			name: "second empty",
+			a:    slice.StringSlice{"one"},
+			want: false,
+		},
+		{
+			name: "first has more items",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"one"},
+			want: false,
+		},
+		{
+			name: "second has more items",
+			a:    slice.StringSlice{"one"},
+			b:    slice.StringSlice{"one", "two"},
+			want: false,
+		},
+		{
+			name: "both has one item items",
+			a:    slice.StringSlice{"one"},
+			b:    slice.StringSlice{"one"},
+			want: true,
+		},
+		{
+			name: "both has two items in exactly same order",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"one", "two"},
+			want: true,
+		},
+		{
+			name: "both has two items in different order",
+			a:    slice.StringSlice{"two", "one"},
+			b:    slice.StringSlice{"one", "two"},
+			want: false,
+		},
+		{
+			name: "slices has both two items but differs in values",
+			a:    slice.StringSlice{"one", "three"},
+			b:    slice.StringSlice{"one", "two"},
+			want: false,
+		},
+	}
+
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			given := testCase.a.IsSame(testCase.b)
+			if testCase.want != given {
+				t.Errorf("slices are not same, a:'%v' | b: '%v'", testCase.a, testCase.b)
+			}
+		})
+	}
+}
+
+func BenchmarkStringSlice_IsSame(b *testing.B) {
+	cases := []struct {
+		name string
+		a, b slice.StringSlice
+	}{
+		{
+			name: "differs in length",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"one"},
+		},
+		{
+			name: "differs in values",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"one", "three"},
+		},
+		{
+			name: "values are same and have same order",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"one", "two"},
+		},
+		{
+			name: "values are same but different order",
+			a:    slice.StringSlice{"one", "two"},
+			b:    slice.StringSlice{"two", "one"},
+		},
+	}
+
+	for _, c := range cases {
+		b.Run(c.name, func(b *testing.B) {
+			for n := 0; n < b.N; n++ {
+				_ = c.a.IsSame(c.b)
+			}
+		})
+	}
+}

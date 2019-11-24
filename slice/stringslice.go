@@ -36,7 +36,8 @@ func (s StringSlice) Len() int {
 	return len(s)
 }
 
-// IsEqual checks if two slices contains the same values. It don'T cares about the order.
+// IsEqual checks if two slices contains the same values. It don't cares about the order.
+// Note: IsSame() is faster and is preferred as long as you the order of the values is same in both slices.
 func (s StringSlice) IsEqual(b StringSlice) bool {
 	if s.Len() != b.Len() {
 		return false
@@ -44,6 +45,21 @@ func (s StringSlice) IsEqual(b StringSlice) bool {
 
 	for _, item := range s {
 		if b.IsNotIn(item) {
+			return false
+		}
+	}
+
+	return true
+}
+
+// IsSame checks if two slices contains the same values in exactly the same order.
+func (s StringSlice) IsSame(b StringSlice) bool {
+	if s.Len() != b.Len() {
+		return false
+	}
+
+	for k, item := range s {
+		if item != b[k] {
 			return false
 		}
 	}
