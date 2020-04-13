@@ -56,7 +56,7 @@ func TestCopyFile_Happy(t *testing.T) {
 		t.Fatalf("expected no error on laoding destination file but got %s", err)
 	}
 
-	if len(content) < 100 {
+	if len(content) < 100 { //nolint: gomnd
 		t.Errorf("expected content to be more than %d cahraters but got only %d", 100, len(content))
 	}
 
@@ -111,20 +111,20 @@ func TestCreateDirectoryIfNotExists(t *testing.T) {
 		{
 			name:       "happy - new directory one level",
 			path:       "./../tmp/new",
-			levels:     1,
-			iterations: 1,
+			levels:     1, //nolint: gomnd
+			iterations: 1, //nolint: gomnd
 		},
 		{
 			name:       "happy - new directory two levels",
 			path:       "./../tmp/new/two",
-			levels:     2,
-			iterations: 1,
+			levels:     2, //nolint: gomnd
+			iterations: 1, //nolint: gomnd
 		},
 		{
 			name:       "happy - new directory which already exists",
 			path:       "./../tmp/new",
-			levels:     1,
-			iterations: 2,
+			levels:     1, //nolint: gomnd
+			iterations: 2, //nolint: gomnd
 		},
 	}
 
@@ -162,17 +162,17 @@ func TestCreateFileIfNotExists(t *testing.T) {
 		{
 			name:       "happy - new file",
 			fileName:   "./../tmp/new_file.log",
-			iterations: 1,
+			iterations: 1, //nolint: gomnd
 		},
 		{
 			name:       "happy - file exists",
 			fileName:   "./../tmp/file_exists.log",
-			iterations: 2,
+			iterations: 2, //nolint: gomnd
 		},
 		{
 			name:          "unhappy - path doesn't exist",
 			fileName:      "./../tmp/pathdoesnotexist/new_file.log",
-			iterations:    1,
+			iterations:    1,                                              //nolint: gomnd
 			expectedError: "open ./../tmp/pathdoesnotexist/new_file.log:", // nolint: golint
 		},
 	}

@@ -218,12 +218,12 @@ func TestStringSlice_Len(t *testing.T) {
 		{
 			name:  "one elements",
 			given: slice.StringSlice{"one"},
-			want:  1,
+			want:  1, //nolint: gomnd
 		},
 		{
 			name:  "two elements",
 			given: slice.StringSlice{"one", "two"},
-			want:  2,
+			want:  2, //nolint: gomnd
 		},
 	}
 
