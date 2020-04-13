@@ -42,3 +42,19 @@ func TestInt(t *testing.T) {
 		})
 	}
 }
+
+func TestInt_EnsureCallingTwiceReturnsDifferentNumber(t *testing.T) {
+	min := 5
+	max := 10000
+
+	var before, now int
+	for i := 0; i < 10; i++ {
+		now = rand.Int(min, max)
+
+		if i > 0 && before == now {
+			t.Errorf("expected that values differ after each call")
+		}
+
+		before = now
+	}
+}
