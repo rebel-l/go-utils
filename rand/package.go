@@ -1,2 +1,2 @@
-// Package rand provides additional functionalitly on Golangs `rand` package.
+// Package rand provides additional functionality on Golangs `rand` package.
 package rand
