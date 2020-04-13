@@ -30,3 +30,6 @@ The package `rand` provides functions for random numbers.
 
 ## Package: slice [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/slice?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/slice)
 The package `slice` provides types and functions to work with most common slices.
+
+## Package: strings [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/strings?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/strings)
+The package `strings` provides functions to work with strings.
