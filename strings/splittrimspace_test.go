@@ -32,6 +32,21 @@ func TestSplitTrimSpace(t *testing.T) {
 			testString: " first, second ",
 			expected:   []string{"first", "second"},
 		},
+		{
+			name:       "empty string",
+			testString: "",
+			expected:   []string{},
+		},
+		{
+			name:       "one empty element",
+			testString: " ",
+			expected:   []string{},
+		},
+		{
+			name:       "two empty elements",
+			testString: " , ",
+			expected:   []string{},
+		},
 	}
 
 	for _, testCase := range testCases {

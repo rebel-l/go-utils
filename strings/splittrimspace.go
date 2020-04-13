@@ -3,12 +3,17 @@ package strings
 import "strings"
 
 // SplitTrimSpace combines strings.Split() and strings.TrimSpace() to return a slice of strings without spaces in the
-// elements.
+// elements. Empty elements are removed.
 func SplitTrimSpace(s, sep string) []string {
-	result := strings.Split(s, sep)
+	var result []string
 
-	for k, v := range result {
-		result[k] = strings.TrimSpace(v)
+	split := strings.Split(s, sep)
+
+	for _, v := range split {
+		e := strings.TrimSpace(v)
+		if e != "" {
+			result = append(result, e)
+		}
 	}
 
 	return result
