@@ -102,11 +102,12 @@ func TestCopyFile_Unhappy(t *testing.T) {
 
 func TestCreateDirectoryIfNotExists(t *testing.T) {
 	testCases := []struct {
-		name          string
-		path          string
-		iterations    int
-		levels        int
-		expectedError error
+		name           string
+		path           string
+		iterations     int
+		levels         int
+		withPermissons os.FileMode
+		expectedError  error
 	}{
 		{
 			name:       "happy - new directory one level",
@@ -126,12 +127,26 @@ func TestCreateDirectoryIfNotExists(t *testing.T) {
 			levels:     1, //nolint: gomnd
 			iterations: 2, //nolint: gomnd
 		},
+		{
+			name:           "happy - new directory one level with permissions",
+			path:           "./../tmp/new-withpermissions",
+			withPermissons: 0777, //nolint: gomnd
+			levels:         1,    //nolint: gomnd
+			iterations:     1,    //nolint: gomnd
+		},
 	}
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
 			for i := 0; i < testCase.iterations; i++ {
-				err := osutils.CreateDirectoryIfNotExists(testCase.path)
+				var err error
+
+				if testCase.withPermissons > 0 {
+					err = osutils.CreateDirectoryIfNotExists(testCase.path, testCase.withPermissons)
+				} else {
+					err = osutils.CreateDirectoryIfNotExists(testCase.path)
+				}
+
 				if err != testCase.expectedError {
 					t.Fatalf("failed to create directory %s: expected error %v but got %v", testCase.path, testCase.expectedError, err)
 				}
@@ -151,8 +166,6 @@ func TestCreateDirectoryIfNotExists(t *testing.T) {
 }
 
 func TestCreateFileIfNotExists(t *testing.T) {
-	var createdFiles []string
-
 	testCases := []struct {
 		name          string
 		fileName      string
@@ -193,13 +206,10 @@ func TestCreateFileIfNotExists(t *testing.T) {
 					return
 				}
 			}
-			createdFiles = append(createdFiles, testCase.fileName)
-		})
-	}
 
-	for _, f := range createdFiles {
-		if err := os.Remove(f); err != nil {
-			t.Fatalf("unable to cleanup after test execution: %s", err)
-		}
+			if err := os.Remove(testCase.fileName); err != nil {
+				t.Fatalf("unable to cleanup after test execution: %s", err)
+			}
+		})
 	}
 }

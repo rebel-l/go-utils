@@ -8,7 +8,8 @@ import (
 )
 
 const (
-	defaultPermission = 0750
+	defaultPermissionDirectory os.FileMode = 0755
+	defaultPermissionFile      os.FileMode = 0644
 )
 
 // FileOrPathExists checks if a path or file exists
@@ -34,7 +35,7 @@ func CopyFile(src, dest string) error {
 		_ = from.Close() // nolint: gosec
 	}()
 
-	to, err := os.OpenFile(dest, os.O_RDWR|os.O_CREATE, 0600)
+	to, err := os.OpenFile(dest, os.O_RDWR|os.O_CREATE, defaultPermissionFile)
 	if err != nil {
 		return fmt.Errorf("copy failed on destination file: %s", err)
 	}
@@ -50,10 +51,16 @@ func CopyFile(src, dest string) error {
 }
 
 // CreateDirectoryIfNotExists creates a path recursive
-func CreateDirectoryIfNotExists(path string) (err error) {
+func CreateDirectoryIfNotExists(path string, permission ...os.FileMode) (err error) {
+	perm := defaultPermissionDirectory
+
+	if len(permission) > 0 {
+		perm = permission[0]
+	}
+
 	exist := FileOrPathExists(path)
 	if !exist {
-		err = os.MkdirAll(path, defaultPermission)
+		err = os.MkdirAll(path, perm)
 	}
 
 	return
