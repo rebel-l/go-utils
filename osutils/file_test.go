@@ -166,6 +166,27 @@ func TestCreateDirectoryIfNotExists(t *testing.T) {
 }
 
 func TestCreateFileIfNotExists(t *testing.T) {
+	// prepare
+	path := "./../tmp/TestCreateFileIfNotExists"
+	createdTestFiles := []string{
+		path + "/new_file.log",
+		path + "/file_exists.log",
+	}
+
+	if osutils.FileOrPathExists(path) {
+		createdTestFiles = append(createdTestFiles, path)
+		for _, v := range createdTestFiles {
+			if err := os.Remove(v); err != nil && !strings.Contains(err.Error(), "The system cannot find the file specified.") {
+				t.Fatalf("unable to cleanup test directory: %s", err)
+			}
+		}
+	}
+
+	if err := osutils.CreateDirectoryIfNotExists(path); err != nil {
+		t.Fatalf("unable to create test directory: %s", err)
+	}
+
+	// test
 	testCases := []struct {
 		name          string
 		fileName      string
@@ -174,19 +195,19 @@ func TestCreateFileIfNotExists(t *testing.T) {
 	}{
 		{
 			name:       "happy - new file",
-			fileName:   "./../tmp/new_file.log",
+			fileName:   createdTestFiles[0],
 			iterations: 1, //nolint: gomnd
 		},
 		{
 			name:       "happy - file exists",
-			fileName:   "./../tmp/file_exists.log",
+			fileName:   createdTestFiles[1],
 			iterations: 2, //nolint: gomnd
 		},
 		{
 			name:          "unhappy - path doesn't exist",
-			fileName:      "./../tmp/pathdoesnotexist/new_file.log",
-			iterations:    1,                                              //nolint: gomnd
-			expectedError: "open ./../tmp/pathdoesnotexist/new_file.log:", // nolint: golint
+			fileName:      path + "/pathdoesnotexist/new_file.log",
+			iterations:    1,                                                                        //nolint: gomnd
+			expectedError: "open ./../tmp/TestCreateFileIfNotExists/pathdoesnotexist/new_file.log:", // nolint: golint
 		},
 	}
 
@@ -205,10 +226,6 @@ func TestCreateFileIfNotExists(t *testing.T) {
 					}
 					return
 				}
-			}
-
-			if err := os.Remove(testCase.fileName); err != nil {
-				t.Fatalf("unable to cleanup after test execution: %s", err)
 			}
 		})
 	}
