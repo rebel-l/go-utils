@@ -12,6 +12,17 @@ const (
 	defaultPermissionFile      os.FileMode = 0644
 )
 
+var (
+	// ErrCopyFailed defines the error if copy operation failed in general.
+	ErrCopyFailed = fmt.Errorf("copy failed")
+
+	// ErrCopyFailedOnSource defines the error if copy operation failed on the source file.
+	ErrCopyFailedOnSource = fmt.Errorf("copy failed on source file")
+
+	// ErrCopyFailedOnDestination defines the error if copy operation failed on the destination file.
+	ErrCopyFailedOnDestination = fmt.Errorf("copy failed on destination file")
+)
+
 // FileOrPathExists checks if a path or file exists.
 func FileOrPathExists(path string) bool {
 	_, err := os.Stat(path)
@@ -29,7 +40,7 @@ func CopyFile(src, dest string) error {
 
 	from, err := os.Open(src) // nolint: gosec
 	if err != nil {
-		return fmt.Errorf("copy failed on source file: %s", err)
+		return fmt.Errorf("%w: %s", ErrCopyFailedOnSource, err)
 	}
 	defer func() { // nolint: wsl
 		_ = from.Close()
@@ -37,14 +48,14 @@ func CopyFile(src, dest string) error {
 
 	to, err := os.OpenFile(dest, os.O_RDWR|os.O_CREATE, defaultPermissionFile)
 	if err != nil {
-		return fmt.Errorf("copy failed on destination file: %s", err)
+		return fmt.Errorf("%w: %s", ErrCopyFailedOnDestination, err)
 	}
 	defer func() { // nolint: wsl
 		_ = to.Close()
 	}()
 
 	if _, err = io.Copy(to, from); err != nil {
-		return fmt.Errorf("copy failed: %s", err)
+		return fmt.Errorf("%w: %s", ErrCopyFailed, err)
 	}
 
 	return nil

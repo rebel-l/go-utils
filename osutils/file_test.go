@@ -1,6 +1,7 @@
 package osutils_test
 
 import (
+	"errors"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -147,7 +148,7 @@ func TestCreateDirectoryIfNotExists(t *testing.T) {
 					err = osutils.CreateDirectoryIfNotExists(testCase.path)
 				}
 
-				if err != testCase.expectedError {
+				if !errors.Is(err, testCase.expectedError) {
 					t.Fatalf("failed to create directory %s: expected error %v but got %v", testCase.path, testCase.expectedError, err)
 				}
 			}
