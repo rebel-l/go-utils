@@ -13,14 +13,8 @@ const (
 )
 
 var (
-	// ErrCopyFailed defines the error if copy operation failed in general.
+	// ErrCopyFailed defines the error if copy operation failed.
 	ErrCopyFailed = fmt.Errorf("copy failed")
-
-	// ErrCopyFailedOnSource defines the error if copy operation failed on the source file.
-	ErrCopyFailedOnSource = fmt.Errorf("copy failed on source file")
-
-	// ErrCopyFailedOnDestination defines the error if copy operation failed on the destination file.
-	ErrCopyFailedOnDestination = fmt.Errorf("copy failed on destination file")
 )
 
 // FileOrPathExists checks if a path or file exists.
@@ -40,7 +34,7 @@ func CopyFile(src, dest string) error {
 
 	from, err := os.Open(src) // nolint: gosec
 	if err != nil {
-		return fmt.Errorf("%w: %s", ErrCopyFailedOnSource, err)
+		return fmt.Errorf("%w on source file: %s", ErrCopyFailed, err)
 	}
 	defer func() { // nolint: wsl
 		_ = from.Close()
@@ -48,7 +42,7 @@ func CopyFile(src, dest string) error {
 
 	to, err := os.OpenFile(dest, os.O_RDWR|os.O_CREATE, defaultPermissionFile)
 	if err != nil {
-		return fmt.Errorf("%w: %s", ErrCopyFailedOnDestination, err)
+		return fmt.Errorf("%w on destination file: %s", ErrCopyFailed, err)
 	}
 	defer func() { // nolint: wsl
 		_ = to.Close()
