@@ -1,16 +1,20 @@
-package rand
+package rand_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/rebel-l/go-utils/rand"
+)
 
 func TestSeedInitialized(t *testing.T) {
-	actual := SeedInitialized()
+	actual := rand.SeedInitialized()
 	if actual {
 		t.Errorf("expected that seed is not initialized at the beginning but got: %t", actual)
 	}
 
-	InitSeed()
+	rand.InitSeed()
 
-	actual = SeedInitialized()
+	actual = rand.SeedInitialized()
 	if !actual {
 		t.Errorf("expected that seed is initialized after call of InitSeed() but got: %t", actual)
 	}

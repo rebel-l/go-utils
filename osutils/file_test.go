@@ -56,7 +56,7 @@ func TestCopyFile_Happy(t *testing.T) {
 		t.Fatalf("expected no error on laoding destination file but got %s", err)
 	}
 
-	if len(content) < 100 { //nolint: gomnd
+	if len(content) < 100 {
 		t.Errorf("expected content to be more than %d cahraters but got only %d", 100, len(content))
 	}
 
@@ -112,27 +112,27 @@ func TestCreateDirectoryIfNotExists(t *testing.T) {
 		{
 			name:       "happy - new directory one level",
 			path:       "./../tmp/new",
-			levels:     1, //nolint: gomnd
-			iterations: 1, //nolint: gomnd
+			levels:     1,
+			iterations: 1,
 		},
 		{
 			name:       "happy - new directory two levels",
 			path:       "./../tmp/new/two",
-			levels:     2, //nolint: gomnd
-			iterations: 1, //nolint: gomnd
+			levels:     2,
+			iterations: 1,
 		},
 		{
 			name:       "happy - new directory which already exists",
 			path:       "./../tmp/new",
-			levels:     1, //nolint: gomnd
-			iterations: 2, //nolint: gomnd
+			levels:     1,
+			iterations: 2,
 		},
 		{
 			name:           "happy - new directory one level with permissions",
 			path:           "./../tmp/new-withpermissions",
-			withPermissons: 0777, //nolint: gomnd
-			levels:         1,    //nolint: gomnd
-			iterations:     1,    //nolint: gomnd
+			withPermissons: 0777,
+			levels:         1,
+			iterations:     1,
 		},
 	}
 
@@ -196,18 +196,18 @@ func TestCreateFileIfNotExists(t *testing.T) {
 		{
 			name:       "happy - new file",
 			fileName:   createdTestFiles[0],
-			iterations: 1, //nolint: gomnd
+			iterations: 1,
 		},
 		{
 			name:       "happy - file exists",
 			fileName:   createdTestFiles[1],
-			iterations: 2, //nolint: gomnd
+			iterations: 2,
 		},
 		{
 			name:          "unhappy - path doesn't exist",
 			fileName:      path + "/pathdoesnotexist/new_file.log",
-			iterations:    1,                                                                        //nolint: gomnd
-			expectedError: "open ./../tmp/TestCreateFileIfNotExists/pathdoesnotexist/new_file.log:", // nolint: golint
+			iterations:    1,
+			expectedError: "open ./../tmp/TestCreateFileIfNotExists/pathdoesnotexist/new_file.log:",
 		},
 	}
 

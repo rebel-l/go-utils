@@ -14,17 +14,17 @@ func TestInt(t *testing.T) {
 	}{
 		{
 			name: "between 0 and 100",
-			max:  100, //nolint: gomnd
+			max:  100,
 		},
 		{
 			name: "between 20 and 50",
-			min:  20, //nolint: gomnd
-			max:  50, //nolint: gomnd
+			min:  20,
+			max:  50,
 		},
 		{
 			name: "between -50 and 50",
-			min:  -50, //nolint: gomnd
-			max:  50,  //nolint: gomnd
+			min:  -50,
+			max:  50,
 		},
 	}
 

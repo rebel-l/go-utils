@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-var seeded bool // nolint: gochecknoglobals
+var seeded bool = false // nolint: gochecknoglobals
 
 // InitSeed ensures rand package to return random values. Function ensures seed is initialized only once.
 func InitSeed() {
