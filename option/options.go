@@ -36,7 +36,7 @@ func (o Options) ForAll(callback func(option Option) error) error {
 	for i, v := range o {
 		err := callback(v)
 		if err != nil {
-			return fmt.Errorf("failed to execute callback on entry %d: %s", i, err)
+			return fmt.Errorf("failed to execute callback on entry %d: %w", i, err)
 		}
 	}
 

@@ -1,12 +1,14 @@
 package option_test
 
 import (
-	"fmt"
+	"errors"
 	"testing"
 
-	"github.com/rebel-l/go-utils/errorutils"
-
 	"github.com/rebel-l/go-utils/option"
+)
+
+var (
+	errCustom = errors.New("custom")
 )
 
 func TestOptions_IsValidOption(t *testing.T) {
@@ -199,7 +201,7 @@ func TestOptions_ForAll(t *testing.T) {
 		{
 			name: "empty - error",
 			callback: func(option option.Option) error {
-				return fmt.Errorf("failed")
+				return errCustom
 			},
 		},
 		{
@@ -239,9 +241,9 @@ func TestOptions_ForAll(t *testing.T) {
 				},
 			},
 			callback: func(option option.Option) error {
-				return fmt.Errorf("failed")
+				return errCustom
 			},
-			expected: fmt.Errorf("failed to execute callback on entry 0: failed"),
+			expected: errCustom,
 		},
 		{
 			name: "two entries - second causes error",
@@ -257,11 +259,11 @@ func TestOptions_ForAll(t *testing.T) {
 			},
 			callback: func(option option.Option) error {
 				if option.Key == "something2" {
-					return fmt.Errorf("failed")
+					return errCustom
 				}
 				return nil
 			},
-			expected: fmt.Errorf("failed to execute callback on entry 1: failed"),
+			expected: errCustom,
 		},
 	}
 
@@ -269,7 +271,7 @@ func TestOptions_ForAll(t *testing.T) {
 		t.Run(testCase.name, func(t *testing.T) {
 			got := testCase.data.ForAll(testCase.callback)
 
-			if !errorutils.Equal(got, testCase.expected) {
+			if !errors.Is(got, testCase.expected) {
 				t.Errorf("Expected result from callback '%s' but got '%s'", testCase.expected, got)
 			}
 		})
