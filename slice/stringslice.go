@@ -1,5 +1,7 @@
 package slice
 
+import "strings"
+
 // StringSlice represents a slice of strings.
 type StringSlice []string
 
@@ -65,4 +67,14 @@ func (s StringSlice) IsSame(b StringSlice) bool {
 	}
 
 	return true
+}
+
+// String returns the slice elements as a comma separated string.
+func (s StringSlice) String() string {
+	return strings.Join(s, ",")
+}
+
+// Join returns the slice elements as string separated by the given separator string.
+func (s StringSlice) Join(separator string) string {
+	return strings.Join(s, separator)
 }

@@ -435,3 +435,82 @@ func BenchmarkStringSlice_IsSame(b *testing.B) {
 		})
 	}
 }
+
+func TestStringSlice_String(t *testing.T) {
+	testCases := []struct {
+		name     string
+		data     slice.StringSlice
+		expected string
+	}{
+		{
+			name:     "empty slice",
+			expected: "",
+		},
+		{
+			name:     "one element",
+			data:     []string{"one"},
+			expected: "one",
+		},
+		{
+			name:     "two elements",
+			data:     []string{"one", "two"},
+			expected: "one,two",
+		},
+		{
+			name:     "three elements (second is empty string)",
+			data:     []string{"one", "", "three"},
+			expected: "one,,three",
+		},
+	}
+
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			got := testCase.data.String()
+			if got != testCase.expected {
+				t.Errorf("expected '%s' but got '%s'", testCase.expected, got)
+			}
+		})
+	}
+}
+
+func TestStringSlice_Join(t *testing.T) {
+	testCases := []struct {
+		name      string
+		data      slice.StringSlice
+		separator string
+		expected  string
+	}{
+		{
+			name:      "empty slice",
+			separator: "<>",
+			expected:  "",
+		},
+		{
+			name:      "one element",
+			data:      []string{"one"},
+			separator: "-",
+			expected:  "one",
+		},
+		{
+			name:      "two elements",
+			data:      []string{"one", "two"},
+			separator: "|",
+			expected:  "one|two",
+		},
+		{
+			name:      "three elements (second is empty string)",
+			data:      []string{"one", "", "three"},
+			separator: ".",
+			expected:  "one..three",
+		},
+	}
+
+	for _, testCase := range testCases {
+		t.Run(testCase.name, func(t *testing.T) {
+			got := testCase.data.Join(testCase.separator)
+			if got != testCase.expected {
+				t.Errorf("expected '%s' but got '%s'", testCase.expected, got)
+			}
+		})
+	}
+}
