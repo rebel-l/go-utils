@@ -1,9 +1,9 @@
-package rand_test
+package randutils_test
 
 import (
 	"testing"
 
-	"github.com/rebel-l/go-utils/rand"
+	"github.com/rebel-l/go-utils/randutils"
 )
 
 func TestInt(t *testing.T) {
@@ -30,7 +30,7 @@ func TestInt(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			actual := rand.Int(testCase.min, testCase.max)
+			actual := randutils.Int(testCase.min, testCase.max)
 
 			if actual < testCase.min {
 				t.Errorf("expected randon number greater or eqal %d, but got %d", testCase.min, actual)
@@ -49,7 +49,7 @@ func TestInt_EnsureCallingTwiceReturnsDifferentNumber(t *testing.T) {
 
 	var before, now int
 	for i := 0; i < 10; i++ {
-		now = rand.Int(min, max)
+		now = randutils.Int(min, max)
 
 		if i > 0 && before == now {
 			t.Errorf("expected that values differ after each call")

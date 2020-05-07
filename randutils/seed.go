@@ -1,4 +1,4 @@
-package rand
+package randutils
 
 import (
 	"math/rand"
@@ -7,7 +7,7 @@ import (
 
 var seeded bool = false // nolint: gochecknoglobals
 
-// InitSeed ensures rand package to return random values. Function ensures seed is initialized only once.
+// InitSeed ensures randutils package to return random values. Function ensures seed is initialized only once.
 func InitSeed() {
 	if SeedInitialized() {
 		return
