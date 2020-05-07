@@ -1,9 +1,9 @@
-package strings_test
+package stringsutils_test
 
 import (
 	"testing"
 
-	"github.com/rebel-l/go-utils/strings"
+	"github.com/rebel-l/go-utils/stringsutils"
 )
 
 func TestSplitTrimSpace(t *testing.T) {
@@ -51,7 +51,7 @@ func TestSplitTrimSpace(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.name, func(t *testing.T) {
-			actual := strings.SplitTrimSpace(testCase.testString, ",")
+			actual := stringsutils.SplitTrimSpace(testCase.testString, ",")
 
 			if len(testCase.expected) != len(actual) {
 				t.Fatalf("expected %d elements but got %d", len(testCase.expected), len(actual))
