@@ -12,8 +12,8 @@ Provides a collection of packages with common functionality for Golang.
 ## Package: array [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/array?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/array)
 The package `array` contains helpers to work with arrays of different types.
 
-## Package: errorutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/errorutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/errorutils)
-The package `errorutils` provide functions around the go error interface.
+## Package: httputils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/httputils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/httputils)
+The package `httputils` provide functions around the go `http` package.
 
 ## Package: mapof [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/mapof?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/mapof)
 The package `mapof` provides types and functions to work with most common map of slices.
