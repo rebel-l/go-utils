@@ -24,11 +24,14 @@ The package `option` provides types and functions to manage basic options.
 ## Package: osutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/osutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/osutils)
 The package `osutils` provides additional functionalitly on Golangs `os` package.
 
-## Package: rand [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/rand?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/rand)
+## Package: rand [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/randutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/randutils)
 The package `rand` provides functions for random numbers.
 
 ## Package: slice [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/slice?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/slice)
 The package `slice` provides types and functions to work with most common slices.
 
-## Package: strings [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/strings?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/strings)
+## Package: strings [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/stringsutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/stringsutils)
 The package `strings` provides functions to work with strings.
+
+## Package: testingutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/testingutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/testingutils)
+The packag `testingutils` provides helpers for tests.
