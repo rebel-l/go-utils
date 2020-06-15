@@ -4,10 +4,11 @@ go 1.14
 
 require (
 	github.com/gogo/protobuf v1.3.1 // indirect
-	github.com/golang/mock v1.3.1 // indirect
+	github.com/golang/mock v1.3.1
 	github.com/golangci/gocyclo v0.0.0-20180528144436-0a533e8fa43d // indirect
 	github.com/golangci/golangci-lint v1.21.0 // indirect
 	github.com/golangci/revgrep v0.0.0-20180812185044-276a5c0a1039 // indirect
+	github.com/google/uuid v1.1.1
 	github.com/gopherjs/gopherjs v0.0.0-20190915194858-d3ddacdb130f // indirect
 	github.com/gostaticanalysis/analysisutil v0.0.3 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
