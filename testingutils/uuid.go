@@ -6,12 +6,6 @@ import (
 	"github.com/google/uuid"
 )
 
-// Tester is the interface for go tests.
-type Tester interface {
-	Fatal(args ...interface{})
-	Helper()
-}
-
 // UUIDParse is a test helper to generate UUID fixtures.
 func UUIDParse(t Tester, s string) uuid.UUID {
 	t.Helper()

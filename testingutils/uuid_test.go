@@ -7,11 +7,11 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/rebel-l/go-utils/testingutils/mocks/testing_mock"
 
 	"github.com/google/uuid"
 
 	"github.com/rebel-l/go-utils/testingutils"
+	"github.com/rebel-l/go-utils/testingutils/mocks/testing_mock"
 )
 
 func TestParse(t *testing.T) {
@@ -38,7 +38,8 @@ func TestParse_Error(t *testing.T) {
 	mockTesting.EXPECT().Fatal(
 		gomock.Eq(
 			fmt.Sprintf("failed to parse UUID from '%s': %v", u, "invalid UUID length: 12"),
-		)).Times(1)
+		),
+	).Times(1)
 
 	_ = testingutils.UUIDParse(mockTesting, u)
 }
