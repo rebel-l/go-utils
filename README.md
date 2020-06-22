@@ -34,4 +34,7 @@ The package `slice` provides types and functions to work with most common slices
 The package `strings` provides functions to work with strings.
 
 ## Package: testingutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/testingutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/testingutils)
-The packag `testingutils` provides helpers for tests.
+The package `testingutils` provides helpers for tests.
+
+## Package: uuidutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/uuidutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/uuidutils)
+The package `uuidutils` provides helpers for handling with UUIDs.
