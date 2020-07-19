@@ -7,9 +7,7 @@ import (
 	"github.com/rebel-l/go-utils/option"
 )
 
-var (
-	errCustom = errors.New("custom")
-)
+var errCustom = errors.New("custom")
 
 func TestOptions_IsValidOption(t *testing.T) {
 	testCases := []struct {

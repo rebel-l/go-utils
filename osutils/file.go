@@ -8,14 +8,12 @@ import (
 )
 
 const (
-	defaultPermissionDirectory os.FileMode = 0755
-	defaultPermissionFile      os.FileMode = 0644
+	defaultPermissionDirectory os.FileMode = 0o755
+	defaultPermissionFile      os.FileMode = 0o644
 )
 
-var (
-	// ErrCopyFailed defines the error if copy operation failed.
-	ErrCopyFailed = fmt.Errorf("copy failed")
-)
+// ErrCopyFailed defines the error if copy operation failed.
+var ErrCopyFailed = fmt.Errorf("copy failed")
 
 // FileOrPathExists checks if a path or file exists.
 func FileOrPathExists(path string) bool {
