@@ -24,6 +24,9 @@ The package `option` provides types and functions to manage basic options.
 ## Package: osutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/osutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/osutils)
 The package `osutils` provides additional functionalitly on Golangs `os` package.
 
+## Package: pb [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/pb?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/pb)
+The package `pb` provides helpers for using a progress bar.
+
 ## Package: randutils [![Documentation](https://godoc.org/github.com/rebel-l/go-utils/randutils?status.svg)](https://godoc.org/github.com/rebel-l/go-utils/randutils)
 The package `rand` provides functions for random numbers.
 
