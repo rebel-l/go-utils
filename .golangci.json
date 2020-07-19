@@ -16,6 +16,7 @@
     "linters": {
         "enable-all": true,
         "disable": [
+            "gofumpt",
             "scopelint"
         ]
     },
