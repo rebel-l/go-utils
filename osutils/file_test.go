@@ -131,7 +131,7 @@ func TestCreateDirectoryIfNotExists(t *testing.T) {
 		{
 			name:           "happy - new directory one level with permissions",
 			path:           "./../tmp/new-withpermissions",
-			withPermissons: 0777,
+			withPermissons: 0o777,
 			levels:         1,
 			iterations:     1,
 		},
