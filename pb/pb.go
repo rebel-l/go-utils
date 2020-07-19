@@ -24,7 +24,7 @@ func New(engine string, total int) Progressor {
 	case EngineBlackhole:
 		progressBar = &BlackHole{}
 	case EngineCheggaaa:
-		progressBar = pb.New(total)
+		progressBar = pb.StartNew(total)
 	}
 
 	return progressBar
