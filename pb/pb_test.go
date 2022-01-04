@@ -8,6 +8,8 @@ import (
 )
 
 func TestNew(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		engine string
 		total  int
@@ -23,11 +25,15 @@ func TestNew(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.engine, func(t *testing.T) {
-			p := pb.New(testCase.engine, testCase.total)
+		tc := testCase
+
+		t.Run(tc.engine, func(t *testing.T) {
+			t.Parallel()
+
+			p := pb.New(tc.engine, tc.total)
 			ty := fmt.Sprintf("%T", p)
 
-			switch testCase.engine {
+			switch tc.engine {
 			case pb.EngineBlackhole:
 				if ty != "*pb.BlackHole" {
 					t.Errorf("expected type BlackHole but got %s", ty)

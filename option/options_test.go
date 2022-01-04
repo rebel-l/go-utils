@@ -10,6 +10,8 @@ import (
 var errCustom = errors.New("custom")
 
 func TestOptions_IsValidOption(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name     string
 		data     option.Options
@@ -87,16 +89,22 @@ func TestOptions_IsValidOption(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			got := testCase.data.IsValidOption(testCase.key)
-			if got != testCase.expected {
-				t.Errorf("Expected %t, but got %t", testCase.expected, got)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := tc.data.IsValidOption(tc.key)
+			if got != tc.expected {
+				t.Errorf("Expected %t, but got %t", tc.expected, got)
 			}
 		})
 	}
 }
 
 func TestOptions_IsValidOptionCI(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name     string
 		data     option.Options
@@ -174,16 +182,22 @@ func TestOptions_IsValidOptionCI(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			got := testCase.data.IsValidOptionCI(testCase.key)
-			if got != testCase.expected {
-				t.Errorf("Expected %t, but got %t", testCase.expected, got)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := tc.data.IsValidOptionCI(tc.key)
+			if got != tc.expected {
+				t.Errorf("Expected %t, but got %t", tc.expected, got)
 			}
 		})
 	}
 }
 
 func TestOptions_ForAll(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name     string
 		data     option.Options
@@ -259,6 +273,7 @@ func TestOptions_ForAll(t *testing.T) {
 				if option.Key == "something2" {
 					return errCustom
 				}
+
 				return nil
 			},
 			expected: errCustom,
@@ -266,11 +281,15 @@ func TestOptions_ForAll(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			got := testCase.data.ForAll(testCase.callback)
+		tc := testCase
 
-			if !errors.Is(got, testCase.expected) {
-				t.Errorf("Expected result from callback '%s' but got '%s'", testCase.expected, got)
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := tc.data.ForAll(tc.callback)
+
+			if !errors.Is(got, tc.expected) {
+				t.Errorf("Expected result from callback '%s' but got '%s'", tc.expected, got)
 			}
 		})
 	}

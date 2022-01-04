@@ -5,12 +5,13 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-
 	"github.com/rebel-l/go-utils/testingutils"
 	"github.com/rebel-l/go-utils/testingutils/mocks/testing_mock"
 )
 
 func TestErrorsCheck(t *testing.T) {
+	t.Parallel()
+
 	errSame := errors.New("same") // nolint:goerr113
 
 	testCases := []struct {
@@ -46,20 +47,23 @@ func TestErrorsCheck(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
+		tc := testCase
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
 			ctrl := gomock.NewController(t)
 			defer ctrl.Finish()
 
 			mockTesting := testing_mock.NewMockTB(ctrl)
 			mockTesting.EXPECT().Helper().Times(1)
 
-			if testCase.errMsg != "" {
-				mockTesting.EXPECT().Error(gomock.Eq(testCase.errMsg)).Times(1)
+			if tc.errMsg != "" {
+				mockTesting.EXPECT().Error(gomock.Eq(tc.errMsg)).Times(1)
 			} else {
 				mockTesting.EXPECT().Error(gomock.Any()).Times(0)
 			}
 
-			testingutils.ErrorsCheck(mockTesting, testCase.expectedError, testCase.actualError)
+			testingutils.ErrorsCheck(mockTesting, tc.expectedError, tc.actualError)
 		})
 	}
 }

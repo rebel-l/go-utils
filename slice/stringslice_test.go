@@ -76,32 +76,46 @@ func getIsInTestCases() []struct {
 }
 
 func TestStringSlice_IsIn(t *testing.T) {
+	t.Parallel()
+
 	tests := getIsInTestCases()
 
 	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			actual := test.given.IsIn(test.search)
-			if test.want != actual {
-				t.Errorf("expected %t but got %t", test.want, actual)
+		tc := test
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			actual := tc.given.IsIn(tc.search)
+			if tc.want != actual {
+				t.Errorf("expected %t but got %t", tc.want, actual)
 			}
 		})
 	}
 }
 
 func TestStringSlice_IsNotIn(t *testing.T) {
+	t.Parallel()
+
 	tests := getIsInTestCases()
 
 	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			actual := test.given.IsNotIn(test.search)
-			if !test.want != actual {
-				t.Errorf("expected %t but got %t", test.want, actual)
+		tc := test
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			actual := tc.given.IsNotIn(tc.search)
+			if !tc.want != actual {
+				t.Errorf("expected %t but got %t", tc.want, actual)
 			}
 		})
 	}
 }
 
 func Test(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name  string
 		given slice.StringSlice
@@ -190,15 +204,19 @@ func Test(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			actual := test.given.Diff(test.diff)
-			if len(test.want) != len(actual) {
-				t.Errorf("exptect %v but got %v", test.want, actual)
+		tc := test
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			actual := tc.given.Diff(tc.diff)
+			if len(tc.want) != len(actual) {
+				t.Errorf("exptect %v but got %v", tc.want, actual)
 			}
 
-			for _, v := range test.want {
+			for _, v := range tc.want {
 				if actual.IsNotIn(v) {
-					t.Errorf("exptect %v but got %v", test.want, actual)
+					t.Errorf("exptect %v but got %v", tc.want, actual)
 				}
 			}
 		})
@@ -206,6 +224,8 @@ func Test(t *testing.T) {
 }
 
 func TestStringSlice_Len(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name  string
 		given slice.StringSlice
@@ -228,15 +248,21 @@ func TestStringSlice_Len(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			if testCase.given.Len() != testCase.want {
-				t.Errorf("expected length is %d but got %d", testCase.given.Len(), testCase.want)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			if tc.given.Len() != tc.want {
+				t.Errorf("expected length is %d but got %d", tc.given.Len(), tc.want)
 			}
 		})
 	}
 }
 
 func TestStringSlice_IsEqual(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name string
 		a, b slice.StringSlice
@@ -291,10 +317,14 @@ func TestStringSlice_IsEqual(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			given := testCase.a.IsEqual(testCase.b)
-			if testCase.want != given {
-				t.Errorf("slices are not equal, a:'%v' | b: '%v'", testCase.a, testCase.b)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			given := tc.a.IsEqual(tc.b)
+			if tc.want != given {
+				t.Errorf("slices are not equal, a:'%v' | b: '%v'", tc.a, tc.b)
 			}
 		})
 	}
@@ -337,6 +367,8 @@ func BenchmarkStringSlice_IsEqual(b *testing.B) {
 }
 
 func TestStringSlice_IsSame(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name string
 		a, b slice.StringSlice
@@ -391,10 +423,14 @@ func TestStringSlice_IsSame(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			given := testCase.a.IsSame(testCase.b)
-			if testCase.want != given {
-				t.Errorf("slices are not same, a:'%v' | b: '%v'", testCase.a, testCase.b)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			given := tc.a.IsSame(tc.b)
+			if tc.want != given {
+				t.Errorf("slices are not same, a:'%v' | b: '%v'", tc.a, tc.b)
 			}
 		})
 	}
@@ -437,6 +473,8 @@ func BenchmarkStringSlice_IsSame(b *testing.B) {
 }
 
 func TestStringSlice_String(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name     string
 		data     slice.StringSlice
@@ -464,16 +502,22 @@ func TestStringSlice_String(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			got := testCase.data.String()
-			if got != testCase.expected {
-				t.Errorf("expected '%s' but got '%s'", testCase.expected, got)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := tc.data.String()
+			if got != tc.expected {
+				t.Errorf("expected '%s' but got '%s'", tc.expected, got)
 			}
 		})
 	}
 }
 
 func TestStringSlice_Join(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name      string
 		data      slice.StringSlice
@@ -506,10 +550,14 @@ func TestStringSlice_Join(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			got := testCase.data.Join(testCase.separator)
-			if got != testCase.expected {
-				t.Errorf("expected '%s' but got '%s'", testCase.expected, got)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := tc.data.Join(tc.separator)
+			if got != tc.expected {
+				t.Errorf("expected '%s' but got '%s'", tc.expected, got)
 			}
 		})
 	}

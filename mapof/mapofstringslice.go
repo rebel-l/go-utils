@@ -23,6 +23,7 @@ func (s StringSliceMap) AddUniqueValue(key, value string) {
 // KeyExists checks if a given key exists in the map.
 func (s StringSliceMap) KeyExists(key string) bool {
 	_, ok := s[key]
+
 	return ok
 }
 

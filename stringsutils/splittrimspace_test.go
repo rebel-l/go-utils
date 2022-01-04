@@ -7,6 +7,8 @@ import (
 )
 
 func TestSplitTrimSpace(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name       string
 		testString string
@@ -50,14 +52,18 @@ func TestSplitTrimSpace(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			actual := stringsutils.SplitTrimSpace(testCase.testString, ",")
+		tc := testCase
 
-			if len(testCase.expected) != len(actual) {
-				t.Fatalf("expected %d elements but got %d", len(testCase.expected), len(actual))
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			actual := stringsutils.SplitTrimSpace(tc.testString, ",")
+
+			if len(tc.expected) != len(actual) {
+				t.Fatalf("expected %d elements but got %d", len(tc.expected), len(actual))
 			}
 
-			for k, expected := range testCase.expected {
+			for k, expected := range tc.expected {
 				if expected != actual[k] {
 					t.Fatalf("expected elemet %d to be '%s' but got '%s'", k, expected, actual[k])
 				}

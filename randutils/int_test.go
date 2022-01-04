@@ -7,6 +7,8 @@ import (
 )
 
 func TestInt(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name string
 		min  int
@@ -29,21 +31,27 @@ func TestInt(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			actual := randutils.Int(testCase.min, testCase.max)
+		tc := testCase
 
-			if actual < testCase.min {
-				t.Errorf("expected randon number greater or eqal %d, but got %d", testCase.min, actual)
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			actual := randutils.Int(tc.min, tc.max)
+
+			if actual < tc.min {
+				t.Errorf("expected randon number greater or eqal %d, but got %d", tc.min, actual)
 			}
 
-			if actual > testCase.max {
-				t.Errorf("expected randon number less or eqal %d, but got %d", testCase.max, actual)
+			if actual > tc.max {
+				t.Errorf("expected randon number less or eqal %d, but got %d", tc.max, actual)
 			}
 		})
 	}
 }
 
 func TestInt_EnsureCallingTwiceReturnsDifferentNumber(t *testing.T) {
+	t.Parallel()
+
 	min := 5
 	max := 10000
 

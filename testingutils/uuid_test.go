@@ -7,14 +7,14 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-
 	"github.com/google/uuid"
-
 	"github.com/rebel-l/go-utils/testingutils"
 	"github.com/rebel-l/go-utils/testingutils/mocks/testing_mock"
 )
 
 func TestParse(t *testing.T) {
+	t.Parallel()
+
 	want, err := uuid.NewRandom()
 	if err != nil {
 		t.Fatalf("failed to create UUID: %v", err)
@@ -28,6 +28,8 @@ func TestParse(t *testing.T) {
 }
 
 func TestParse_Error(t *testing.T) {
+	t.Parallel()
+
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 

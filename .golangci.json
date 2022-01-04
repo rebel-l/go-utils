@@ -4,8 +4,10 @@
             {
                 "path": "_test.go",
                 "linters": [
+                    "cyclop",
                     "dupl",
-                    "funlen"
+                    "funlen",
+                    "varnamelen"
                 ]
             }
         ],
@@ -17,8 +19,16 @@
         "enable-all": true,
         "disable": [
             "gofumpt",
+            "golint",
+            "interfacer",
+            "maligned",
             "scopelint"
         ]
+    },
+    "linters-settings": {
+        "varnamelen": {
+            "max-distance": 20
+        }
     },
     "run": {
         "deadline": "5m",

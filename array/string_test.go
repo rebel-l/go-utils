@@ -7,6 +7,8 @@ import (
 )
 
 func TestStringArrayEquals(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name     string
 		a        []string
@@ -56,10 +58,14 @@ func TestStringArrayEquals(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			actual := array.StringArrayEquals(testCase.a, testCase.b)
-			if testCase.expected != actual {
-				t.Errorf("Expected that array %v & %v equals '%t' but got '%t'", testCase.a, testCase.b, testCase.expected, actual)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			actual := array.StringArrayEquals(tc.a, tc.b)
+			if tc.expected != actual {
+				t.Errorf("Expected that array %v & %v equals '%t' but got '%t'", tc.a, tc.b, tc.expected, actual)
 			}
 		})
 	}

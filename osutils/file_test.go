@@ -12,6 +12,8 @@ import (
 )
 
 func TestFileOrPathExists(t *testing.T) {
+	t.Parallel()
+
 	testcases := []struct {
 		name     string
 		path     string
@@ -35,15 +37,21 @@ func TestFileOrPathExists(t *testing.T) {
 	}
 
 	for _, testcase := range testcases {
-		t.Run(testcase.name, func(t *testing.T) {
-			if actual := osutils.FileOrPathExists(testcase.path); testcase.expected != actual {
-				t.Errorf("Expected result for existing files is %t but got %t", testcase.expected, actual)
+		tc := testcase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			if actual := osutils.FileOrPathExists(tc.path); tc.expected != actual {
+				t.Errorf("Expected result for existing files is %t but got %t", tc.expected, actual)
 			}
 		})
 	}
 }
 
 func TestCopyFile_Happy(t *testing.T) {
+	t.Parallel()
+
 	source := "./../LICENSE"
 	destination := "./../tmp/LICENSE"
 
@@ -67,6 +75,8 @@ func TestCopyFile_Happy(t *testing.T) {
 }
 
 func TestCopyFile_Unhappy(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name        string
 		src         string
@@ -88,20 +98,26 @@ func TestCopyFile_Unhappy(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			err := osutils.CopyFile(testCase.src, testCase.dest)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			err := osutils.CopyFile(tc.src, tc.dest)
 			if err == nil {
 				t.Fatalf("excpected error is happen but got none")
 			}
 
-			if !strings.Contains(err.Error(), testCase.expectedErr) {
-				t.Errorf("expected error message contains '%s'. Got '%s'", testCase.expectedErr, err.Error())
+			if !strings.Contains(err.Error(), tc.expectedErr) {
+				t.Errorf("expected error message contains '%s'. Got '%s'", tc.expectedErr, err.Error())
 			}
 		})
 	}
 }
 
 func TestCreateDirectoryIfNotExists(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name           string
 		path           string
@@ -138,24 +154,28 @@ func TestCreateDirectoryIfNotExists(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			for i := 0; i < testCase.iterations; i++ {
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			for i := 0; i < tc.iterations; i++ {
 				var err error
 
-				if testCase.withPermissons > 0 {
-					err = osutils.CreateDirectoryIfNotExists(testCase.path, testCase.withPermissons)
+				if tc.withPermissons > 0 {
+					err = osutils.CreateDirectoryIfNotExists(tc.path, tc.withPermissons)
 				} else {
-					err = osutils.CreateDirectoryIfNotExists(testCase.path)
+					err = osutils.CreateDirectoryIfNotExists(tc.path)
 				}
 
-				if !errors.Is(err, testCase.expectedError) {
-					t.Fatalf("failed to create directory %s: expected error %v but got %v", testCase.path, testCase.expectedError, err)
+				if !errors.Is(err, tc.expectedError) {
+					t.Fatalf("failed to create directory %s: expected error %v but got %v", tc.path, tc.expectedError, err)
 				}
 			}
 
-			pathToCleanUp := testCase.path
+			pathToCleanUp := tc.path
 
-			for i := 0; i < testCase.levels; i++ {
+			for i := 0; i < tc.levels; i++ {
 				if err := os.Remove(pathToCleanUp); err != nil {
 					t.Fatalf("unable to cleanup after test execution: %s", err)
 				}
@@ -167,6 +187,8 @@ func TestCreateDirectoryIfNotExists(t *testing.T) {
 }
 
 func TestCreateFileIfNotExists(t *testing.T) {
+	t.Parallel()
+
 	// prepare
 	path := "./../tmp/TestCreateFileIfNotExists"
 	createdTestFiles := []string{
@@ -213,18 +235,23 @@ func TestCreateFileIfNotExists(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			for i := 0; i < testCase.iterations; i++ {
-				err := osutils.CreateFileIfNotExists(testCase.fileName)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			for i := 0; i < tc.iterations; i++ {
+				err := osutils.CreateFileIfNotExists(tc.fileName)
 				if err != nil {
-					if testCase.expectedError != "" && !strings.Contains(err.Error(), testCase.expectedError) {
+					if tc.expectedError != "" && !strings.Contains(err.Error(), tc.expectedError) {
 						t.Fatalf(
 							"failed to create file %s: expected error '%v' but got '%v'",
-							testCase.fileName,
-							testCase.expectedError,
+							tc.fileName,
+							tc.expectedError,
 							err,
 						)
 					}
+
 					return
 				}
 			}

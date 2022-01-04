@@ -3,12 +3,13 @@ package uuidutils_test
 import (
 	"testing"
 
-	"github.com/rebel-l/go-utils/uuidutils"
-
 	"github.com/google/uuid"
+	"github.com/rebel-l/go-utils/uuidutils"
 )
 
 func TestIsEmpty(t *testing.T) {
+	t.Parallel()
+
 	u, err := uuid.NewRandom()
 	if err != nil {
 		t.Fatalf("failed to generate UUID: %v", err)
@@ -31,10 +32,14 @@ func TestIsEmpty(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			got := uuidutils.IsEmpty(testCase.uuid)
-			if testCase.expected != got {
-				t.Errorf("expected %t but got %t", testCase.expected, got)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := uuidutils.IsEmpty(tc.uuid)
+			if tc.expected != got {
+				t.Errorf("expected %t but got %t", tc.expected, got)
 			}
 		})
 	}

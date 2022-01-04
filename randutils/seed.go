@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-var seeded bool = false // nolint: gochecknoglobals
+var seeded = false // nolint: gochecknoglobals
 
 // InitSeed ensures randutils package to return random values. Function ensures seed is initialized only once.
 func InitSeed() {

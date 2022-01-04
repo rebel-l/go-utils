@@ -8,6 +8,8 @@ import (
 )
 
 func TestNewClient(t *testing.T) {
+	t.Parallel()
+
 	testCases := []struct {
 		name     string
 		option   interface{}
@@ -30,10 +32,14 @@ func TestNewClient(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		t.Run(testCase.name, func(t *testing.T) {
-			client := httputils.NewClient(testCase.option)
-			if testCase.expected != client.Timeout {
-				t.Errorf("expected timeout %v but got %v", testCase.expected, client.Timeout)
+		tc := testCase
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			client := httputils.NewClient(tc.option)
+			if tc.expected != client.Timeout {
+				t.Errorf("expected timeout %v but got %v", tc.expected, client.Timeout)
 			}
 		})
 	}

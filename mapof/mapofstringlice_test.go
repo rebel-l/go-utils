@@ -3,12 +3,13 @@ package mapof_test
 import (
 	"testing"
 
-	"github.com/rebel-l/go-utils/slice"
-
 	"github.com/rebel-l/go-utils/mapof"
+	"github.com/rebel-l/go-utils/slice"
 )
 
 func TestStringSliceMap_GetValuesForKey(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name  string
 		given mapof.StringSliceMap
@@ -35,10 +36,13 @@ func TestStringSliceMap_GetValuesForKey(t *testing.T) {
 		},
 	}
 	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			actual := test.given.GetValuesForKey(test.key)
-			if len(test.want) != len(actual) {
-				t.Errorf("expected %v but got %v", test.want, actual)
+		tc := test
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			actual := tc.given.GetValuesForKey(tc.key)
+			if len(tc.want) != len(actual) {
+				t.Errorf("expected %v but got %v", tc.want, actual)
 			}
 		})
 	}
@@ -78,32 +82,45 @@ func getKeyExistTestCases() []struct {
 }
 
 func TestStringSliceMap_KeyExists(t *testing.T) {
+	t.Parallel()
+
 	tests := getKeyExistTestCases()
 
 	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			actual := test.given.KeyExists(test.key)
-			if test.want != actual {
-				t.Errorf("expected %t but got %t", test.want, actual)
+		tc := test
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			actual := tc.given.KeyExists(tc.key)
+			if tc.want != actual {
+				t.Errorf("expected %t but got %t", tc.want, actual)
 			}
 		})
 	}
 }
 
 func TestStringSliceMap_KeyNotExists(t *testing.T) {
+	t.Parallel()
+
 	tests := getKeyExistTestCases()
 
 	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			actual := test.given.KeyNotExists(test.key)
-			if !test.want != actual {
-				t.Errorf("expected %t but got %t", test.want, actual)
+		tc := test
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			actual := tc.given.KeyNotExists(tc.key)
+			if !tc.want != actual {
+				t.Errorf("expected %t but got %t", tc.want, actual)
 			}
 		})
 	}
 }
 
 func TestStringSliceMap_AddUniqueValue(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name  string
 		given mapof.StringSliceMap
@@ -134,26 +151,30 @@ func TestStringSliceMap_AddUniqueValue(t *testing.T) {
 		},
 	}
 	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			test.given.AddUniqueValue(test.key, test.value)
-			if len(test.want) != len(test.given) {
-				t.Errorf("expected %v but got %v", test.want, test.given)
+		tc := test
+
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			tc.given.AddUniqueValue(tc.key, tc.value)
+			if len(tc.want) != len(tc.given) {
+				t.Errorf("expected %v but got %v", tc.want, tc.given)
 			}
 
-			for key, want := range test.want {
-				if test.given.KeyNotExists(key) {
-					t.Errorf("expected %v but got %v", test.want, test.given)
+			for key, want := range tc.want {
+				if tc.given.KeyNotExists(key) {
+					t.Errorf("expected %v but got %v", tc.want, tc.given)
 				}
 
-				a := test.given.GetValuesForKey(key)
+				a := tc.given.GetValuesForKey(key)
 				for _, w := range want {
 					if a.IsNotIn(w) {
-						t.Errorf("expected %v but got %v", test.want, test.given)
+						t.Errorf("expected %v but got %v", tc.want, tc.given)
 					}
 				}
 
 				if hasDuplicates(a) {
-					t.Errorf("expected %v but got %v", test.want, test.given)
+					t.Errorf("expected %v but got %v", tc.want, tc.given)
 				}
 			}
 		})
@@ -162,7 +183,7 @@ func TestStringSliceMap_AddUniqueValue(t *testing.T) {
 
 func hasDuplicates(s slice.StringSlice) bool {
 	counter := make(map[string]bool)
-	for _, v := range s { // nolint: wsl
+	for _, v := range s {
 		if _, ok := counter[v]; ok {
 			return true
 		}

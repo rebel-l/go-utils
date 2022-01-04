@@ -12,7 +12,7 @@ const (
 
 // NewClient return a new http.Client. By default the timeout of the client is defined by the
 // constant ClientDefaultTimeout.
-// With the options parameter you you can change the timeout. Options accept a time.Duration or int which means seconds.
+// With the options parameter you can change the timeout. Options accept a time.Duration or int which means seconds.
 func NewClient(options ...interface{}) *http.Client {
 	timeout := ClientDefaultTimeout
 
@@ -27,7 +27,7 @@ func NewClient(options ...interface{}) *http.Client {
 		}
 	}
 
-	return &http.Client{
+	return &http.Client{ // nolint: exhaustivestruct
 		Timeout: timeout,
 	}
 }
