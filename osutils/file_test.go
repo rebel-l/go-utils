@@ -128,19 +128,19 @@ func TestCreateDirectoryIfNotExists(t *testing.T) {
 	}{
 		{
 			name:       "happy - new directory one level",
-			path:       "./../tmp/new",
+			path:       "./../tmp/new1",
 			levels:     1,
 			iterations: 1,
 		},
 		{
 			name:       "happy - new directory two levels",
-			path:       "./../tmp/new/two",
+			path:       "./../tmp/new2/two",
 			levels:     2,
 			iterations: 1,
 		},
 		{
 			name:       "happy - new directory which already exists",
-			path:       "./../tmp/new",
+			path:       "./../tmp/new4",
 			levels:     1,
 			iterations: 2,
 		},
