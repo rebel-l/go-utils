@@ -34,15 +34,15 @@ func CopyFile(src, dest string) error {
 	if err != nil {
 		return fmt.Errorf("%w on source file: %s", ErrCopyFailed, err)
 	}
-	defer func() { // nolint: wsl
+	defer func() { // nolint: gosec,wsl
 		_ = from.Close()
 	}()
 
-	to, err := os.OpenFile(dest, os.O_RDWR|os.O_CREATE, defaultPermissionFile)
+	to, err := os.OpenFile(dest, os.O_RDWR|os.O_CREATE, defaultPermissionFile) // nolint: gosec
 	if err != nil {
 		return fmt.Errorf("%w on destination file: %s", ErrCopyFailed, err)
 	}
-	defer func() { // nolint: wsl
+	defer func() { // nolint: gosec,wsl
 		_ = to.Close()
 	}()
 

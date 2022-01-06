@@ -1,7 +1,8 @@
 package randutils
 
 import (
-	"math/rand"
+	"crypto/rand"
+	"math/big"
 )
 
 const (
@@ -12,5 +13,7 @@ const (
 func Int(min, max int) int {
 	InitSeed()
 
-	return rand.Intn(max-min+defaultSummand) + min
+	i, _ := rand.Int(rand.Reader, big.NewInt(int64(max-min+defaultSummand)))
+
+	return int(i.Int64() + int64(min))
 }
