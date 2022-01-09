@@ -8,4 +8,16 @@ jobs:
       - uses: actions/setup-go@v2
         with:
           go-version: '^1.17.5'
+      - run: go version
       - run: go test -v -cover -race -coverprofile=coverage.txt -covermode=atomic ./...
+      - run: bash <(curl -s https://codecov.io/bash)
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+            go-version: '^1.17.5'
+      - run: go version
+      - run: go install github.com/golangci/golangci-lint/cmd/golangci-lint
+      - run: bash <(curl -s https://codecov.io/bash)
