@@ -1,4 +1,4 @@
-[![build](https://github.com/rebel-l/go-utils/actions/workflows/ci/badge.svg)](https://github.com/rebel-l/go-utils/actions) 
+[![build](https://github.com/rebel-l/go-utils/actions/workflows/ci.yml/badge.svg)](https://github.com/rebel-l/go-utils/actions) 
 [![codecov](https://codecov.io/gh/rebel-l/go-utils/branch/master/graph/badge.svg)](https://codecov.io/gh/rebel-l/go-utils)
 [![Go Report Card](https://goreportcard.com/badge/github.com/rebel-l/go-utils)](https://goreportcard.com/report/github.com/rebel-l/go-utils)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
